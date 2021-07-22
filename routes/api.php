@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\GuestbookController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('member',MemberController::class);
+Route::resource('guestbook',GuestbookController::class);
+Route::resource('article',ArticleController::class);
+
 /*
 Route::get('/member',[MemberController::class,'index']);
 Route::post('/member',[MemberController::class,'store']);

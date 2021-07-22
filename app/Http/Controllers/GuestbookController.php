@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
+use App\Models\Guestbook;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class GuestbookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return Member::all();
+        //
     }
 
     /**
@@ -35,34 +35,27 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'number' => 'required'
-        ]);
-
-        $member = Member::create($request->all());
-
-        return response($member, Response::HTTP_CREATED);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Guestbook  $guestbook
      * @return \Illuminate\Http\Response
      */
-    public function show(Member $member)
+    public function show(Guestbook $guestbook)
     {
-        return Member::find($member);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Guestbook  $guestbook
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(Guestbook $guestbook)
     {
         //
     }
@@ -71,10 +64,10 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Guestbook  $guestbook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, Guestbook $guestbook)
     {
         //
     }
@@ -82,10 +75,10 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Guestbook  $guestbook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $member)
+    public function destroy(Guestbook $guestbook)
     {
         //
     }
