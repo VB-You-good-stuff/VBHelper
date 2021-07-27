@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('member',MemberController::class);
 Route::resource('guestbook',GuestbookController::class);
-Route::resource('article',ArticleController::class);
+
 
 /*
 Route::get('/member',[MemberController::class,'index']);

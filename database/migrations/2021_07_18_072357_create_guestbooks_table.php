@@ -13,10 +13,18 @@ class CreateGuestbooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('guestbooks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
+        if(Schema::hasTable('Guestbooks')){
+
+        }
+        else{
+            Schema::create('Guestbooks', function (Blueprint $table) {
+                $table->bigIncrements('Id');
+                $table->string('Owner');
+                $table->foreign('Owner')->references('Account')->on('Members');
+                $table->string('Article');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
