@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MembersController;
 use App\Http\Controllers\GuestbookController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
@@ -17,15 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+//Route::resource('members',MembersController::class);
+//Route::resource('guestbook',GuestbookController::class);
+
+
+
+//Route::get('/members',[MembersController::class,'index']);
+Route::group([
+    'middleware' => 'api',
+],function($router){
+    Route::post('/members',[MembersController::class,'register']);
+    Route::post('/login',[MembersController::class,'login']);
+    Route::post('/logout',[MembersController::class,'logout']);
+    Route::post('/guestbooks',[GuestbookController::class,'create']);
 });
 
-Route::resource('member',MemberController::class);
-Route::resource('guestbook',GuestbookController::class);
-
-
-/*
-Route::get('/member',[MemberController::class,'index']);
-Route::post('/member',[MemberController::class,'store']);
-*/

@@ -9,9 +9,7 @@ class Guestbook extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'content',
-        'repley',
-        'replytime',
+        'owner',
+        'article',
     ];
 }
