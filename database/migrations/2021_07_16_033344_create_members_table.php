@@ -13,14 +13,16 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('account',30)->unique()->comment('學生帳號');
-            $table->string('password',255)->comment('學生密碼');
-            $table->string('name',10)->comment('學生名稱');
-            $table->string('email',30)->comnent('信箱');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('members')) {
+            Schema::create('members', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('account',30)->unique()->comment('學生帳號');
+                $table->string('password',255)->comment('學生密碼');
+                $table->string('name',10)->comment('學生名稱');
+                $table->string('email',30)->comnent('信箱');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -32,7 +32,7 @@ class MembersController extends Controller
         ));
 
         return response()->json([
-            'message' => 'Member successfully registered',
+            'message' => '註冊成功囉',
             'member' => $member
         ],201) ;
     }
@@ -47,7 +47,7 @@ class MembersController extends Controller
         }
 
         if (! $token = auth()->attempt($validator->validated())){
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => '帳號或密碼錯了，請重新輸入!'], 401);
         }
 
         return $this->createNewToken($token);
@@ -56,7 +56,7 @@ class MembersController extends Controller
     public function logout() {
         auth()->logout();
 
-        return response()->json(['message' => 'User successfully signed out']);
+        return response()->json(['message' => '終於離開囉?']);
     }
     protected function createNewToken($token){
         return response()->json([

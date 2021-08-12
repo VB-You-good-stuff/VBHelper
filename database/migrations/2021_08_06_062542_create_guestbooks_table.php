@@ -13,13 +13,15 @@ class CreateGuestbooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('guestbooks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('owner',30)->comment('學生帳號');
-            $table->foreign('owner')->references('account')->on('members');
-            $table->string('article',255)->comment('文章標題');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('guestbooks')) {
+            Schema::create('guestbooks', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('owner',30)->comment('學生帳號');
+                $table->foreign('owner')->references('account')->on('members');
+                $table->string('article',255)->comment('文章標題');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -13,15 +13,18 @@ class CreateContentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contents', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('guest_id');
-            $table->foreign('guest_id')->references('id')->on('guestbooks');
-            $table->string('detail_name',30)->comment('學生帳號');
-            $table->foreign('detail_name')->references('account')->on('members');
-            $table->string('detail',255);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('contents')) {
+            Schema::create('contents', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->unsignedBigInteger('guest_id');
+                $table->foreign('guest_id')->references('id')->on('guestbooks');
+                $table->string('detail_name',30)->comment('學生帳號');
+                $table->foreign('detail_name')->references('account')->on('members');
+                $table->string('detail',255);
+                $table->smallInteger('floor')->comnet('文章樓層');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

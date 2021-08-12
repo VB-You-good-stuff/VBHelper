@@ -17,16 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
 
-//Route::resource('members',MembersController::class);
-//Route::resource('guestbook',GuestbookController::class);
-
-
-
-//Route::get('/members',[MembersController::class,'index']);
 Route::group([
     'middleware' => 'api',
 ],function($router){
