@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MembersController;
 use App\Http\Controllers\GuestbookController;
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +25,7 @@ Route::group([
     Route::post('/login',[MembersController::class,'login']);
     Route::post('/logout',[MembersController::class,'logout']);
     Route::post('/guestbooks',[GuestbookController::class,'create']);
+    Route::get('/guestbooks',[GuestbookController::class,'get_all']);
+    Route::post('/contents',[ContentController::class,'create']);
 });
 

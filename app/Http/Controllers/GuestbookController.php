@@ -14,7 +14,7 @@ class GuestbookController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    public function Create(Request $request) {
+    public function create(Request $request) {
         if (Auth::check()){
             $member = Auth::user();
             $account = $member -> account;
@@ -30,7 +30,7 @@ class GuestbookController extends Controller
                 'article' => $request->article
             ]));
             $guestId = $guestbook-> id;
-            $floor = Content::where('guest_id', '=', $guestId)->get();
+            
 
             $content = Content::create(array_merge([
                 'guest_id' => $guestbook-> id,
@@ -43,4 +43,15 @@ class GuestbookController extends Controller
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
+    public function get_all(){
+        return Guestbook::all();
+    }
+    /*public function Edit(Request $request) {
+        if(Auth::check()){
+            $member = Auth::user();
+            $validator = Validator::make($request->all(),[
+                ''
+            ])
+        }
+    }*/
 }
