@@ -22,6 +22,7 @@ Route::group([
     'middleware' => 'api',
 ],function($router){
     Route::post('/members',[MembersController::class,'register']);
+    Route::get('/members',[MembersController::class,'getaccount']);
     Route::post('/login',[MembersController::class,'login']);
     Route::post('/logout',[MembersController::class,'logout']);
     Route::post('/guestbooks',[GuestbookController::class,'create']);

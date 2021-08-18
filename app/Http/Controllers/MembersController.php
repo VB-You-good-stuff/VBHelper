@@ -15,6 +15,7 @@ class MembersController extends Controller
     }
 
     public function register(Request $request) {
+
         $validator = Validator::make($request->all(),[
             'account' => 'required|string|min:8|max:30',
             'password' => 'required|string|min:8|max:30',
@@ -55,9 +56,21 @@ class MembersController extends Controller
 
     public function logout() {
         auth()->logout();
-
         return response()->json(['message' => '終於離開囉?']);
     }
+
+    public function getaccount(){
+        if(Auth::check()){
+            return response()->json([
+                'account' => auth()->user()->account,
+                'name' => auth()->user()->name
+            ]);
+        }
+        return response()->json([
+            'message' => '你登入就過期了啊'
+        ]);
+    }
+
     protected function createNewToken($token){
         return response()->json([
             'access_token' => $token,

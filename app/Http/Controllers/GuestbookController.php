@@ -10,9 +10,7 @@ use Validator;
 
 class GuestbookController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
+
 
     public function create(Request $request) {
         if (Auth::check()){
@@ -44,7 +42,10 @@ class GuestbookController extends Controller
         return response()->json(['message' => '為甚麼不登入?']);
     }
     public function get_all(){
-        return Guestbook::all();
+        if(Auth::check()){
+            return Guestbook::all();
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
     /*public function Edit(Request $request) {
         if(Auth::check()){
@@ -54,4 +55,7 @@ class GuestbookController extends Controller
             ])
         }
     }*/
+    public function delete(Request $request){
+
+    }
 }

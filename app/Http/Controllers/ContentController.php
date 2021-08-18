@@ -31,7 +31,7 @@ class ContentController extends Controller
                 'floor' => $floor+1,
             ]));
 
-            return response()->json(['message' => '成功了你好會發文哦']);
+            return response()->json(['message' => '成功了你好會留言哦']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
