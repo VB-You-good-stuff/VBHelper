@@ -18,7 +18,7 @@ class GuestbookController extends Controller
             $account = $member -> account;
             $validator = Validator::make($request->all(),[
                 'article' => 'required|string',
-                'detail' => 'required|string',
+                'detail' => 'required|string|max:255',
             ]);
             if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
@@ -47,15 +47,21 @@ class GuestbookController extends Controller
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
-    /*public function Edit(Request $request) {
+    public function Edit(Request $request) {
         if(Auth::check()){
             $member = Auth::user();
             $validator = Validator::make($request->all(),[
                 ''
-            ])
+            ]);
         }
-    }*/
+    }
     public function delete(Request $request){
+        if(Auth::check()){
 
+            Guestbook::find($request -> id)->delete();
+
+            return response()->json(['message' => '刪除成功']);
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
 }

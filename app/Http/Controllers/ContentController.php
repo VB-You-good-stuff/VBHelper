@@ -17,7 +17,7 @@ class ContentController extends Controller
             $account = $member -> account;
             $validator = Validator::make($request->all(),[
                 'id' => 'required',
-                'detail' => 'required|string',
+                'detail' => 'required|string|max:255',
             ]);
             if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
