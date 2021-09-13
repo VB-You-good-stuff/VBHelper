@@ -22,17 +22,24 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'middleware' => 'api',
 ],function($router){
+    //會員
     Route::post('/members',[MembersController::class,'register']);
     Route::get('/members',[MembersController::class,'getaccount']);
+    //登入登出
     Route::post('/login',[MembersController::class,'login']);
     Route::post('/logout',[MembersController::class,'logout']);
+    //文章的管理
     Route::post('/guestbooks',[GuestbookController::class,'create']);
     Route::get('/guestbooks',[GuestbookController::class,'get_all']);
+    Route::put('/guestbooks',[GuestbookController::class,'edit']);
     Route::delete('/guestbooks',[GuestbookController::class,'delete']);
+    //文章下的樓層
     Route::post('/contents',[ContentController::class,'create']);
+    Route::get('/contents',[ContentController::class,'get_all']);
+    Route::put('/contents',[ContentController::class,'edit']);
+    //樓層下的回覆
     Route::post('/responds',[RespondController::class,'create']);
+    Route::get('/responds',[RespondController::class,'get_all']);
     Route::put('/responds',[RespondController::class,'edit']);
-    
-    
 });
 

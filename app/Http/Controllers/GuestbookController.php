@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guestbook;
 use App\Models\Content;
+use App\Models\Respond;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -17,7 +18,7 @@ class GuestbookController extends Controller
             $member = Auth::user();
             $account = $member -> account;
             $validator = Validator::make($request->all(),[
-                'article' => 'required|string',
+                'article' => 'required|string|max:255|min:2',
                 'detail' => 'required|string|max:255',
             ]);
             if($validator->fails()){
@@ -51,16 +52,27 @@ class GuestbookController extends Controller
         if(Auth::check()){
             $member = Auth::user();
             $validator = Validator::make($request->all(),[
-                ''
+                'id' => 'required',
+                'article' => 'required|string|max:255|min:2'
             ]);
+            $guestbook = Guestbook::findOrFail($request -> id);
+            $guestbook -> article = $request -> article;
+            $guestbook->save();
+            return response()->json(['message' => $guestbook]);
         }
     }
     public function delete(Request $request){
         if(Auth::check()){
-
-            Guestbook::find($request -> id)->delete();
-
-            return response()->json(['message' => '刪除成功']);
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+            ]);
+            
+            Guestbook::find($request -> id);
+            $content = Content::where('guest_id',$request->id)->get();
+            return $content;
+            // $respond = Respond::where('content_id',$content->id)->get();
+            // return $respond;
+            //return response()->json(['message' => '刪除成功']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
