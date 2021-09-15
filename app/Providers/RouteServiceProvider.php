@@ -47,6 +47,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+		Route::macro('combine', function(array $uris, $action)
+        {
+            foreach ($uris as $uri) {
+                Route::any($uri, $action);
+            }
+        });
     }
 
     /**

@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+
+if ( ! request()->ajax()) {
+    Route::combine([
+        '/{vue?}',
+		'/VBBasic/{vue?}'
+
+    ],function(){
+        return \File::get(public_path() . '/index.html');
+    });
+}
