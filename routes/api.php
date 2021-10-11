@@ -25,7 +25,6 @@ Route::group([
     //會員
     Route::post('/members',[MembersController::class,'register']);
     Route::get('/members',[MembersController::class,'getaccount']);
-    //登入登出
     Route::post('/login',[MembersController::class,'login']);
     Route::post('/logout',[MembersController::class,'logout']);
     //文章的管理
