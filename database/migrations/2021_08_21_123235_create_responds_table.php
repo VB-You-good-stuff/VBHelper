@@ -13,7 +13,7 @@ class CreateRespondsTable extends Migration
      */
     public function up()
     {
-        //if (!Schema::hasTable('contents')) {
+        if (!Schema::hasTable('contents')) {
             Schema::create('responds', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('content_id');
@@ -24,7 +24,7 @@ class CreateRespondsTable extends Migration
                 $table->string('reply',255);
                 $table->timestamps();
             });
-        //}
+        }
     }
 
     /**

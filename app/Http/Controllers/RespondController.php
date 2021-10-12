@@ -19,7 +19,8 @@ class RespondController extends Controller
                 'content_id' => $request->content_id,
                 'reply_account' => Auth::user()->account,
                 'name' => Auth::user()->name,
-                'reply' => $request->reply
+                'reply' => $request->reply,
+                'created_at' => now(),
             ]));
             return response()->json(['message' => '成功了你好會回覆哦']);
         }
@@ -42,6 +43,7 @@ class RespondController extends Controller
             ]);
             $respond = Respond::findOrFail($request -> id);
             $respond -> reply = $request -> reply;
+            $respond -> updated_at = now();
             $respond->save();
             return response()->json(['message' => $respond]);
             

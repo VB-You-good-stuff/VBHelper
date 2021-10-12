@@ -25,10 +25,13 @@ class GuestbookController extends Controller
             if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
             }
+            $time = now();
             $guestbook = Guestbook::create(array_merge([
                 'owner' => $account,
                 'name' => $member -> name,
-                'article' => $request->article
+                'article' => $request->article,
+                'created_at' => $time,
+                'last_content_time' => $time,
             ]));
             $guestId = $guestbook-> id;
             $content = Content::create(array_merge([
@@ -37,6 +40,7 @@ class GuestbookController extends Controller
                 'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => 1,
+                'created_at' => $time,
             ]));
 
             return response()->json(['message' => '成功了你好會發文哦']);
@@ -58,6 +62,8 @@ class GuestbookController extends Controller
             ]);
             $guestbook = Guestbook::findOrFail($request -> id);
             $guestbook -> article = $request -> article;
+            $time = now();
+            $guestbook -> updated_at = $time;
             $guestbook->save();
             return response()->json(['message' => $guestbook]);
         }

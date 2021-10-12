@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Content;
+use App\Models\Guestbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -23,14 +24,18 @@ class ContentController extends Controller
                 return response()->json($validator->errors()->toJson(),400);
             }
             $floor = Content::where('guest_id', $request->id)->count();
-
+            $time = now();
             $content = Content::create(array_merge([
                 'guest_id' => $request->id,
                 'detail_account' => $account,
                 'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => $floor+1,
+                'created_at' => $time,
             ]));
+            $guestbook = Guestbook::findOrFail($request -> id);
+            $guestbook -> last_content_time = $time;
+            $guestbook->save();
             //做一個Update
             return response()->json(['message' => '成功了你好會留言哦']);
         }
@@ -53,6 +58,7 @@ class ContentController extends Controller
             ]);
             $content = Content::findOrFail($request -> id);
             $content -> detail = $request -> detail;
+            $content -> updated_at = now();
             $content->save();
             return response()->json(['message' => $content]); 
         }
