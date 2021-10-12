@@ -42,13 +42,10 @@ class ContentController extends Controller
         return response()->json(['message' => '為甚麼不登入?']);
     }
     public function get_all(Request $request){
-        if(Auth::check()){
             $validator = Validator::make($request->all(),[
                 'id' => 'required',
             ]);
             return Content::where('guest_id',$request->id)->get();
-        }
-        return response()->json(['message' => '為甚麼不登入?']);
     }
     public function edit(Request $request){
         if(Auth::check()){

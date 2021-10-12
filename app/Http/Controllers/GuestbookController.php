@@ -46,16 +46,10 @@ class GuestbookController extends Controller
         return response()->json(['message' => '為甚麼不登入?']);
     }
     public function get_all(){
-        if(Auth::check()){
             return Guestbook::orderBy('last_content_time','desc')->get();
-        }
-        return response()->json(['message' => '為甚麼不登入?']);
     }
     public function get_id($id){
-        if(Auth::check()){
             return Guestbook::where('id',$id)->get();
-        }
-        return response()->json(['message' => '為甚麼不登入?']);
     }
     public function Edit(Request $request) {
         if(Auth::check()){
