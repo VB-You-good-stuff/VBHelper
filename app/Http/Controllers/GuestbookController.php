@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guestbook;
 use App\Models\Content;
 use App\Models\Respond;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -26,11 +27,10 @@ class GuestbookController extends Controller
             }
             $guestbook = Guestbook::create(array_merge([
                 'owner' => $account,
+                'name' => $member -> name,
                 'article' => $request->article
             ]));
             $guestId = $guestbook-> id;
-            
-
             $content = Content::create(array_merge([
                 'guest_id' => $guestbook-> id,
                 'detail_name' => $account,

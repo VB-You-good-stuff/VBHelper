@@ -10,6 +10,7 @@ class Guestbook extends Model
     use HasFactory;
     protected $fillable = [
         'owner',
+        'name',
         'article',
     ];
 }

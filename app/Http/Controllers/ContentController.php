@@ -30,7 +30,7 @@ class ContentController extends Controller
                 'detail' => $request->detail,
                 'floor' => $floor+1,
             ]));
-
+            //做一個Update
             return response()->json(['message' => '成功了你好會留言哦']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
