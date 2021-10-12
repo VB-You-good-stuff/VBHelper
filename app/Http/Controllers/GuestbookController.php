@@ -49,7 +49,7 @@ class GuestbookController extends Controller
     }
     public function get_all(){
         if(Auth::check()){
-            return Guestbook::all();
+            return Guestbook::orderBy('last_content_time','desc')->get();
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
