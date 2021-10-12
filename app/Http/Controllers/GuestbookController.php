@@ -12,8 +12,6 @@ use Validator;
 
 class GuestbookController extends Controller
 {
-
-
     public function create(Request $request) {
         if (Auth::check()){
             $member = Auth::user();

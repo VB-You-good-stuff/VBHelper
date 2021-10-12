@@ -7,79 +7,26 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function create(Request $request) {
+        if (Auth::check()){
+            $member = Auth::user();
+            $account = $member -> account;
+            $validator = Validator::make($request->all(),[
+                'title' => 'required|string|max:255|min:2',
+                'document' => 'required|string|max:255',
+            ]);
+            if($validator->fails()){
+                return response()->json($validator->errors()->toJson(),400);
+            }
+            $document = Document::create($validator);
+            return response()->json(['message' => '成功了']);
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Document $document)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Document $document)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Document $document)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Document $document)
-    {
-        //
+    public function get_all(){
+        if(Auth::check()){
+            return Document::all();
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
 }
