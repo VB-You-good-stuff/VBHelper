@@ -11,7 +11,8 @@ class Respond extends Model
 
     protected $fillable = [
         'content_id',
-        'reply_name',
+        'reply_account',
+        'name',
         'reply',
     ];
 }

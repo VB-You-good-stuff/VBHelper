@@ -18,8 +18,9 @@ class CreateRespondsTable extends Migration
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('content_id');
                 $table->foreign('content_id')->references('id')->on('contents');
-                $table->string('reply_name',30)->comment('學生帳號');
-                $table->foreign('reply_name')->references('account')->on('members');
+                $table->string('reply_account',30)->comment('學生帳號');
+                $table->foreign('reply_account')->references('account')->on('members');
+                $table->string('name',10)->comment('學生名稱');
                 $table->string('reply',255);
                 $table->timestamps();
             });

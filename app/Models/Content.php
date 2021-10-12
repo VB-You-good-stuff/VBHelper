@@ -10,7 +10,8 @@ class Content extends Model
     use HasFactory;
     protected $fillable = [
         'guest_id',
-        'detail_name',
+        'detail_account',
+        'name',
         'detail',
         'floor',
     ];

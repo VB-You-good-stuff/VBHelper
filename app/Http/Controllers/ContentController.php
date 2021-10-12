@@ -26,7 +26,8 @@ class ContentController extends Controller
 
             $content = Content::create(array_merge([
                 'guest_id' => $request->id,
-                'detail_name' => $account,
+                'detail_account' => $account,
+                'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => $floor+1,
             ]));

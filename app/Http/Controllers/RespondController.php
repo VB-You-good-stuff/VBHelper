@@ -17,7 +17,8 @@ class RespondController extends Controller
             ]);
             Respond::create(array_merge([
                 'content_id' => $request->content_id,
-                'reply_name' => Auth::user()->account,
+                'reply_account' => Auth::user()->account,
+                'name' => Auth::user()->name,
                 'reply' => $request->reply
             ]));
             return response()->json(['message' => '成功了你好會回覆哦']);

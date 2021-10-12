@@ -33,7 +33,8 @@ class GuestbookController extends Controller
             $guestId = $guestbook-> id;
             $content = Content::create(array_merge([
                 'guest_id' => $guestbook-> id,
-                'detail_name' => $account,
+                'detail_account' => $account,
+                'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => 1,
             ]));
