@@ -20,7 +20,7 @@ class CreateGuestbooksTable extends Migration
                 $table->foreign('owner')->references('account')->on('members');
                 $table->string('name',10)->comment('學生名稱');
                 $table->string('article',255)->comment('文章標題');
-                $table->timestamps('last_content_time');
+                $table->time('last_content_time',0);
                 $table->timestamps();
             });
         }
