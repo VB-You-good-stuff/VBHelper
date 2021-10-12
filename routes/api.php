@@ -47,5 +47,6 @@ Route::group([
 });
 
 Route::get('/guestbooks',[GuestbookController::class,'get_all']);
+Route::get('/guestbooks/{id}',[GuestbookController::class,'get_id']);
 Route::get('/contents',[ContentController::class,'get_all']);
 Route::get('/responds',[RespondController::class,'get_all']);
