@@ -17,10 +17,10 @@ class MembersController extends Controller
     public function register(Request $request) {
 
         $validator = Validator::make($request->all(),[
-            'account' => 'required|string|min:8|max:30',
+            'account' => 'required|string|min:8|max:30|unique:members,account',
             'password' => 'required|string|min:8|max:30',
             'name' => 'required|string|min:1|max:10',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:members,email',
         ]);
         
         if($validator->fails()){

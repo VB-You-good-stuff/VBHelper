@@ -29,4 +29,7 @@ class DocumentController extends Controller
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
+    public function get_id($id){
+        return Document::where('id',$id)->get();
+}
 }
