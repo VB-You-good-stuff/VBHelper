@@ -23,7 +23,7 @@ class GuestbookController extends Controller
             if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
             }
-            $time = now();
+            $time = now();  
             $guestbook = Guestbook::create(array_merge([
                 'owner' => $account,
                 'name' => $member -> name,

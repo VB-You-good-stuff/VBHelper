@@ -43,7 +43,7 @@ class RespondController extends Controller
             $respond -> updated_at = now();
             $respond->save();
             return response()->json(['message' => $respond]);
-            
         }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
 }
