@@ -20,9 +20,8 @@ class RespondController extends Controller
                 'reply_account' => Auth::user()->account,
                 'name' => Auth::user()->name,
                 'reply' => $request->reply,
-                'created_at' => now(),
             ]));
-            return response()->json(['message' => '成功了你好會回覆哦']);
+            return response()->json(['message' => '成功留言']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
@@ -43,6 +42,17 @@ class RespondController extends Controller
             $respond -> updated_at = now();
             $respond->save();
             return response()->json(['message' => $respond]);
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
+    }
+    public function delete(Request $request){
+        if(Auth::check()){
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+            ]);
+            $respond = Respond::findOrFail($request -> id);
+            $respond -> delete();
+            return response()->json(['message' =>"刪除成功"]);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }

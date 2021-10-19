@@ -21,6 +21,7 @@ class CreateGuestbooksTable extends Migration
                 $table->string('name',10)->comment('學生名稱');
                 $table->string('article',255)->comment('文章標題');
                 $table->datetime('last_content_time',0);
+                $table->softDeletes();
                 $table->timestamps();
             });
         }

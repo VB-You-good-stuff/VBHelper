@@ -21,6 +21,19 @@ class MembersController extends Controller
             'password' => 'required|string|min:8|max:30',
             'name' => 'required|string|min:1|max:10',
             'email' => 'required|email|unique:members,email',
+        ],[
+            'account.unique' => '該帳號已註冊過。',
+            'account.required' => '請輸入帳號。',
+            'account.min' => '帳號至少:min個字。',
+            'account.max' => '帳號最多:max個字。',
+            'password.required' => '請輸入密碼。',
+            'password.min' => '密碼至少:min個字。',
+            'password.max' => '密碼最多:max個字。',
+            'name.required' => '請輸入名字。',
+            'name.min' => '名字至少:min個字。',
+            'name.max' => '名字最多:max個字。',
+            'email.required' => '請輸入email。',
+            'email.unique' => '該email已註冊過。',
         ]);
         
         if($validator->fails()){
@@ -41,6 +54,13 @@ class MembersController extends Controller
         $validator = Validator::make($request->all(),[
             'account' => 'required|string|min:8|max:30',
             'password' => 'required|string|min:8|max:30',
+        ],[
+            'account.required' => '請輸入帳號。',
+            'password.required' => '請輸入密碼。',
+            'account.min' => '帳號至少:min個字。',
+            'password.min' => '密碼至少:min個字。',
+            'account.max' => '帳號最多:max個字。',
+            'password.max' => '密碼最多:max個字。',
         ]);
 
         if ($validator->fails()){

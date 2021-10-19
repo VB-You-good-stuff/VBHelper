@@ -23,6 +23,7 @@ class CreateContentsTable extends Migration
                 $table->string('name',10)->comment('學生名稱');
                 $table->string('detail',255);
                 $table->smallInteger('floor')->comnet('文章樓層');
+                $table->softDeletes();
                 $table->timestamps();
             });
         }

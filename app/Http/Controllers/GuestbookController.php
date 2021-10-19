@@ -29,6 +29,7 @@ class GuestbookController extends Controller
                 'name' => $member -> name,
                 'article' => $request->article,
                 'created_at' => $time,
+                'updated_at' => $time,
                 'last_content_time' => $time,
             ]));
             $guestId = $guestbook-> id;
@@ -38,10 +39,9 @@ class GuestbookController extends Controller
                 'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => 1,
-                'created_at' => $time,
             ]));
 
-            return response()->json(['message' => '成功了你好會發文哦']);
+            return response()->json(['message' => '成功發表文章']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
@@ -51,19 +51,20 @@ class GuestbookController extends Controller
     public function get_id($id){
             return Guestbook::where('id',$id)->get();
     }
-    public function Edit(Request $request) {
+    public function edit(Request $request) {
         if(Auth::check()){
             $member = Auth::user();
             $validator = Validator::make($request->all(),[
                 'id' => 'required',
                 'article' => 'required|string|max:255|min:2'
             ]);
-            $guestbook = Guestbook::findOrFail($request -> id);
-            $guestbook -> article = $request -> article;
-            $time = now();
-            $guestbook -> updated_at = $time;
-            $guestbook->save();
-            return response()->json(['message' => $guestbook]);
+
+            $time = now();  
+            $guestbook =Guestbook::where('id', $request -> id)->update(
+                ['article' => $request->article,
+                'updated_at' => $time,]
+            );
+            return response()->json(['message' =>$guestbook]);
         }
     }
     public function delete(Request $request){
@@ -71,13 +72,9 @@ class GuestbookController extends Controller
             $validator = Validator::make($request->all(),[
                 'id' => 'required',
             ]);
-            
-            Guestbook::find($request -> id);
-            $content = Content::where('guest_id',$request->id)->get();
-            return $content;
-            // $respond = Respond::where('content_id',$content->id)->get();
-            // return $respond;
-            //return response()->json(['message' => '刪除成功']);
+            $respond = Guestbook::findOrFail($request -> id);
+            $respond -> delete();
+            return response()->json(['message' =>"刪除成功"]);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }

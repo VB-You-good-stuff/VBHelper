@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Respond extends Model
 {
     use HasFactory;
-    public $timestamps = false;
     protected $fillable = [
         'content_id',
         'reply_account',

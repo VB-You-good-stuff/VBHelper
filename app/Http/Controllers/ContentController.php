@@ -23,21 +23,20 @@ class ContentController extends Controller
             if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
             }
-            $floor = Content::where('guest_id', $request->id)->count();
+            $floor = Content::withTrashed()->where('guest_id', $request->id)->count();
             $time = now();
+            $guestbook = Guestbook::findOrFail($request -> id);
             $content = Content::create(array_merge([
                 'guest_id' => $request->id,
                 'detail_account' => $account,
                 'name' => $member -> name,
                 'detail' => $request->detail,
                 'floor' => $floor+1,
-                'created_at' => $time,
             ]));
-            $guestbook = Guestbook::findOrFail($request -> id);
             $guestbook -> last_content_time = $time;
             $guestbook->save();
             //做一個Update
-            return response()->json(['message' => '成功了你好會留言哦']);
+            return response()->json(['message' => '成功回覆']);
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
@@ -55,10 +54,20 @@ class ContentController extends Controller
             ]);
             $content = Content::findOrFail($request -> id);
             $content -> detail = $request -> detail;
-            $content -> updated_at = now();
             $content->save();
             return response()->json(['message' => $content]); 
         }
+    }
+    public function delete(Request $request){
+        if(Auth::check()){
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+            ]);
+            $respond = Content::findOrFail($request -> id);
+            $respond -> delete();
+            return response()->json(['message' =>"刪除成功"]);
+        }
+        return response()->json(['message' => '為甚麼不登入?']);
     }
 }
 
