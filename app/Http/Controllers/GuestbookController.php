@@ -49,7 +49,11 @@ class GuestbookController extends Controller
             return Guestbook::orderBy('last_content_time','desc')->get();
     }
     public function get_id($id){
-            return Guestbook::where('id',$id)->get();
+        $guestbook = Guestbook::where('id',$id)->get();
+        $guestbook = $guestbook[0];
+        $first_floor = Content::where('guest_id',$id)->where("floor",1)->get()[0];
+        $guestbook["content_id"] = $first_floor->id;
+        return $guestbook;
     }
     public function edit(Request $request) {
         if(Auth::check()){
