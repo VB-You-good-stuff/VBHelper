@@ -69,5 +69,8 @@ class ContentController extends Controller
         }
         return response()->json(['message' => '為甚麼不登入?']);
     }
+    public function get_id($id){
+        return Content::where('id',$id)->get();
+    }
 }
 
