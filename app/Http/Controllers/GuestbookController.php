@@ -60,13 +60,17 @@ class GuestbookController extends Controller
             $member = Auth::user();
             $validator = Validator::make($request->all(),[
                 'id' => 'required',
-                'article' => 'required|string|max:255|min:2'
+                'article' => 'required|string|max:255|min:2',
+                'content' => 'required|string|max:255',
             ]);
 
             $time = now();  
             $guestbook =Guestbook::where('id', $request -> id)->update(
                 ['article' => $request->article,
                 'updated_at' => $time,]
+            );
+            $guestbook =Content::where('guest_id', $request -> id)->where("floor",1)->update(
+                ['detail' => $request->content]
             );
             return response()->json(['message' =>$guestbook]);
         }
